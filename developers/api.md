@@ -50,11 +50,21 @@ null
 
 **Request Example**
 
-
+```bash
+curl http://119.147.213.61:38080/v1/btc/challenge?address=bcrt1p0zk5xlwzv90ey7a87krpvck8qr2alyn6flntct4nzvnnq407tx0sa5saxf -H 'Origin:http://memo.io'
+```
 
 **Response Example**
 
+```
+memo.io wants you to sign in with your Bitcoin account:
+bcrt1p0zk5xlwzv90ey7a87krpvck8qr2alyn6flntct4nzvnnq407tx0sa5saxf
 
+URI: http://memo.io
+Version: 1
+Nonce: 6c24a3f065f181c822f2e3991f2851c190d4bb5a8d7d33bd137aba9a3d8c3b98
+Issued At: 2024-08-15T01:47:33Z
+```
 
 ### 1.2 Login
 
@@ -100,11 +110,18 @@ Signature's generation method can be referred to the [document](https://github.c
 
 **Request Example**
 
-
+```bash
+curl http://119.147.213.61:38080/v1/btc/login -X POST -d '{"message":"memo.io wants you to sign in with your Bitcoin account:\nbcrt1p0zk5xlwzv90ey7a87krpvck8qr2alyn6flntct4nzvnnq407tx0sa5saxf\n\nURI: http://memo.io\nVersion: 1\nNonce: 6c24a3f065f181c822f2e3991f2851c190d4bb5a8d7d33bd137aba9a3d8c3b98\nIssued At: 2024-08-15T01:47:33Z","signature":"HzRhlZTmAye7sIcj7sETAn80KPSN5xn/Z12mrZR50ptBIraNFP1BZODi/lrGO5cPEGIMKMHnfMs7RSUbzn2nhOM="}'
+```
 
 **Response Example**
 
-
+```json
+{
+"accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoxLCJhdWQiOiJtb29kYS5pbyIsImV4cCI6MTcyMzY5NDM3OSwiaWF0IjoxNzIzNjg3MTc5LCJpc3MiOiJtb29kYS5pbyIsInN1YiI6ImJjcnQxcDB6azV4bHd6djkwZXk3YTg3a3JwdmNrOHFyMmFseW42ZmxudGN0NG56dm5ucTQwN3R4MHNhNXNheGYifQ.w_C3WK01ALSYYpWQllRMZUFe8pet9GU8BI5FjnCAvOI",
+"refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoyLCJhdWQiOiJtb29kYS5pbyIsImV4cCI6MTcyNDI5MTk3OSwiaWF0IjoxNzIzNjg3MTc5LCJpc3MiOiJtb29kYS5pbyIsInN1YiI6ImJjcnQxcDB6azV4bHd6djkwZXk3YTg3a3JwdmNrOHFyMmFseW42ZmxudGN0NG56dm5ucTQwN3R4MHNhNXNheGYifQ.lpfMnVCjegyx_BblfVarRGl98a9kuoREU7Qc7t3dvI4"
+}
+```
 
 ### 1.3 Refresh Access Token
 
@@ -118,7 +135,7 @@ Refresh the access token.
 
 **Request Method**
 
-POST
+GET
 
 **Header Parameters**
 
@@ -146,11 +163,17 @@ null
 
 **Request Example**
 
-
+```bash
+curl http://119.147.213.61:38080/v1/btc/refresh -H 'Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoyLCJhdWQiOiJtb29kYS5pbyIsImV4cCI6MTcyNDI5MTk3OSwiaWF0IjoxNzIzNjg3MTc5LCJpc3MiOiJtb29kYS5pbyIsInN1YiI6ImJjcnQxcDB6azV4bHd6djkwZXk3YTg3a3JwdmNrOHFyMmFseW42ZmxudGN0NG56dm5ucTQwN3R4MHNhNXNheGYifQ.lpfMnVCjegyx_BblfVarRGl98a9kuoREU7Qc7t3dvI4'
+```
 
 **Response Example**
 
-
+```json
+{
+"accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoxLCJhdWQiOiJtb29kYS5pbyIsImV4cCI6MTcyMzY5NTAzNywiaWF0IjoxNzIzNjg3ODM3LCJpc3MiOiJtb29kYS5pbyIsInN1YiI6ImJjcnQxcDB6azV4bHd6djkwZXk3YTg3a3JwdmNrOHFyMmFseW42ZmxudGN0NG56dm5ucTQwN3R4MHNhNXNheGYifQ.M1GCl3lh7Cn6rbasl8eOAcOKHCsrMwvROTYuwCkEBP0"
+}
+```
 
 ## 2. Inscription
 
@@ -217,11 +240,30 @@ null
 
 **Request Example**
 
-
+```bash
+curl http://119.147.213.61:38080/v1/inscription/c4b727197a68085dff708d22b6c30016e51039f44dcc1996d5b0d2bbf04c7922i0/info
+```
 
 **Response Example**
 
-
+```json
+{
+    "utxoInfo": {
+        "txid": "c4b727197a68085dff708d22b6c30016e51039f44dcc1996d5b0d2bbf04c7922",
+        "vout": 0,
+        "satoshi": 10000,
+        "scriptPk": "78ad437dc2615f927ba7f5861662c700d5df927a4fe6bc2eb313273055fe599f",
+        "address": "bcrt1p0zk5xlwzv90ey7a87krpvck8qr2alyn6flntct4nzvnnq407tx0sa5saxf"
+    },
+    "inscriptionInfo": {
+        "inscriptionId": "c4b727197a68085dff708d22b6c30016e51039f44dcc1996d5b0d2bbf04c7922i0",
+        "commitTransactionHash": "",
+        "revealTransactionHash": "c4b727197a68085dff708d22b6c30016e51039f44dcc1996d5b0d2bbf04c7922",
+        "blockHeight": 55056,
+        "owner": "bcrt1p0zk5xlwzv90ey7a87krpvck8qr2alyn6flntct4nzvnnq407tx0sa5saxf"
+    }
+}
+```
 
 ### 2.2 Get Inscription Content
 
@@ -263,11 +305,17 @@ null
 
 **Request Example**
 
-
+```bash
+curl http://119.147.213.61:38080/v1/inscription/c4b727197a68085dff708d22b6c30016e51039f44dcc1996d5b0d2bbf04c7922i0/content
+```
 
 **Response Example**
 
-
+```json
+{
+    "content": "{\n  \"amt\": 2000,\n  \"op\": \"mint\",\n  \"p\": \"brc-985-token\",\n  \"tick\": \"cyper\"\n}"
+}
+```
 
 ### 2.3 Get Address Inscription Info
 
@@ -340,11 +388,34 @@ null
 
 **Request Example**
 
-
+```bash
+curl http://119.147.213.61:38080/v1/address/bcrt1p0zk5xlwzv90ey7a87krpvck8qr2alyn6flntct4nzvnnq407tx0sa5saxf/inscription/info
+```
 
 **Response Example**
 
-
+```json
+{
+    "infos": [
+        {
+            "utxoInfo": {
+                "txid": "c4b727197a68085dff708d22b6c30016e51039f44dcc1996d5b0d2bbf04c7922",
+                "vout": 0,
+                "satoshi": 10000,
+                "scriptPk": "78ad437dc2615f927ba7f5861662c700d5df927a4fe6bc2eb313273055fe599f",
+                "address": "bcrt1p0zk5xlwzv90ey7a87krpvck8qr2alyn6flntct4nzvnnq407tx0sa5saxf"
+            },
+            "inscriptionInfo": {
+                "inscriptionId": "c4b727197a68085dff708d22b6c30016e51039f44dcc1996d5b0d2bbf04c7922i0",
+                "commitTransactionHash": "",
+                "revealTransactionHash": "c4b727197a68085dff708d22b6c30016e51039f44dcc1996d5b0d2bbf04c7922",
+                "blockHeight": 55056,
+                "owner": "bcrt1p0zk5xlwzv90ey7a87krpvck8qr2alyn6flntct4nzvnnq407tx0sa5saxf"
+            }
+        }
+    ]
+}
+```
 
 ### 2.4 Get UTXO Inscription Info
 
@@ -407,7 +478,9 @@ null
 
 **Request Example**
 
-
+```
+curl http://119.147.213.61:38080/v1/output/{output}/inscription/info
+```
 
 **Response Example**
 
