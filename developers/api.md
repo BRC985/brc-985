@@ -478,13 +478,30 @@ null
 
 **Request Example**
 
-```
-curl http://119.147.213.61:38080/v1/output/{output}/inscription/info
+```bash
+curl http://119.147.213.61:38080/v1/output/21d2fc0493df6237098830083b09cc186a3f886f397539164ba75c3951ee2d28:0/inscription/info
 ```
 
 **Response Example**
 
-
+```json
+{
+    "utxoInfo": {
+        "txid": "21d2fc0493df6237098830083b09cc186a3f886f397539164ba75c3951ee2d28",
+        "vout": 0,
+        "satoshi": 10000,
+        "scriptPk": "c31c2c07cea64f4b703888658b286fb5e74a5e7a0b9714eeabb537cff756d010",
+        "address": "bcrt1pcvwzcp7w5e85kupc3pjck2r0khn55hn6pwt3fm4tk5mula6k6qgqv3605u"
+    },
+    "inscriptionInfo": {
+        "inscriptionId": "21d2fc0493df6237098830083b09cc186a3f886f397539164ba75c3951ee2d28i0",
+        "commitTransactionHash": "",
+        "revealTransactionHash": "21d2fc0493df6237098830083b09cc186a3f886f397539164ba75c3951ee2d28",
+        "blockHeight": 56444,
+        "owner": "bcrt1pcvwzcp7w5e85kupc3pjck2r0khn55hn6pwt3fm4tk5mula6k6qgqv3605u"
+    }
+}
+```
 
 ## 3. Fungible Token
 
@@ -541,11 +558,28 @@ null
 
 **Request Example**
 
-
+```bash
+curl http://119.147.213.61:38080/v1/ft/list?start=1&end=3
+```
 
 **Response Example**
 
-
+```json
+[
+    {
+        "tick": "memo2",
+        "max": 2400000,
+        "lim": 0,
+        "minted": 3000
+    },
+    {
+        "tick": "memo3",
+        "max": 2400000,
+        "lim": 0,
+        "minted": 0
+    }
+]
+```
 
 ### 3.2 Get Address FT Balance
 
@@ -592,11 +626,21 @@ null
 
 **Request Example**
 
-
+```bash
+curl http://119.147.213.61:38080/v1/address/bcrt1pcrjzzyjczr6l5a6u9zecjkydgj8v55a9ucgdcz3lmns07343lqkqdzrt2v/ft/memo/balance
+```
 
 **Response Example**
 
-
+```json
+{
+    "tick": "memo",
+    "address": "bcrt1pcrjzzyjczr6l5a6u9zecjkydgj8v55a9ucgdcz3lmns07343lqkqdzrt2v",
+    "overallBalance": 18900,
+    "transferableBalance": 0,
+    "availableBalance": 18900
+}
+```
 
 ### 3.3 Create FT Deploy Inscription
 
@@ -633,7 +677,7 @@ null
 | --------- | --------- | ------- | ------------------------------------- |
 | tick      | yes       | string  | FT ticker                             |
 | max       | yes       | integer | total supply                          |
-| limit     | yes       | integer | maximum mint amount for a single mint |
+| limit     | no        | integer | maximum mint amount for a single mint |
 
 **Response**
 
@@ -647,11 +691,21 @@ null
 
 **Request Example**
 
-
+```bash
+curl http://119.147.213.61:38080/v1/ft/deploy -X POST -H 'Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoxLCJhdWQiOiJtb29kYS5pbyIsImV4cCI6MTcyMzY5NTAzNywiaWF0IjoxNzIzNjg3ODM3LCJpc3MiOiJtb29kYS5pbyIsInN1YiI6ImJjcnQxcDB6azV4bHd6djkwZXk3YTg3a3JwdmNrOHFyMmFseW42ZmxudGN0NG56dm5ucTQwN3R4MHNhNXNheGYifQ.M1GCl3lh7Cn6rbasl8eOAcOKHCsrMwvROTYuwCkEBP0' -d '{"tick":"btc-cash","max":100000,"limit":5000}'
+```
 
 **Response Example**
 
-
+```json
+{
+	"commitTransactionHash": "a7aa59cf51b334d00b912806075aa0fae39cfd08d249e4c4f041a01523651b6a",
+	"revealTransactionHash": "2e688a17c12ede95365200c8e58221fa4c74323740add3a220cf7da221368d35",
+	"inscriptionUid": "2e688a17c12ede95365200c8e58221fa4c74323740add3a220cf7da221368d35i0",
+	"blockHeight": 0,
+	"owner": "bcrt1pcrjzzyjczr6l5a6u9zecjkydgj8v55a9ucgdcz3lmns07343lqkqdzrt2v"
+}
+```
 
 ### 3.4 Create FT Mint Inscription
 
@@ -816,11 +870,24 @@ null
 
 **Request Example**
 
-
+```bash
+curl http://119.147.213.61:38080/v1/da/list
+```
 
 **Response Example**
 
-
+```json
+[
+    {
+        "tick": "memo2",
+        "storage": "bcrt1pythzl4nr9s2r5v7xg97cx8nftrr4wvzwc558xvdw496dmjn46xjqxg4jgy",
+        "fondation": "bcrt1p83skshxy9y508wt5yt5ggvt79ec5y9sz3xhtzfgmx8znm4hdgcrsuc37ug",
+        "interval": 600,
+        "token": "memo",
+        "price": 100
+    }
+]
+```
 
 ### 4.2 Get Address Data Hold
 
@@ -937,7 +1004,7 @@ Comfirm the upload request to upload the data to the DA.
 **Request Address**
 
 ```
-/v1/da/upload/create
+/v1/da/upload/confirm
 ```
 
 **Request Method**
