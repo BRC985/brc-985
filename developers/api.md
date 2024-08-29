@@ -624,7 +624,6 @@ null
 | parameter           | type    | description          |
 | ------------------- | ------- | -------------------- |
 | tick                | string  | FT's ticker          |
-| address             | string  | btc address(taproot) |
 | overallBalance      | integer | overall balance      |
 | transferableBalance | integer | transferable balance |
 | availableBalance    | integer | available balance    |
