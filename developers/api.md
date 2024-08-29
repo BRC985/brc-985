@@ -588,7 +588,7 @@ Obtain FT balance by address, including available balance, transferable balance.
 **Request Address**
 
 ```
-/v1/address/{address}/ft/{tick}/balance
+/v1/address/{address}/ft/balance
 ```
 
 **Request Method**
@@ -604,7 +604,6 @@ null
 | parameter | type   | description          |
 | --------- | ------ | -------------------- |
 | address   | string | btc address(taproot) |
-| tick      | string | FT ticker            |
 
 **Query parameters**
 
@@ -615,6 +614,12 @@ null
 null
 
 **Response**
+
+| parameter    | type           | description         |
+| ------------ | -------------- | ------------------- |
+| balanceInfos | Arrary<Object> | balance information |
+
+**structure of balanceInfos**
 
 | parameter           | type    | description          |
 | ------------------- | ------- | -------------------- |
@@ -642,7 +647,70 @@ curl http://119.147.213.61:38080/v1/address/bcrt1pcrjzzyjczr6l5a6u9zecjkydgj8v55
 }
 ```
 
-### 3.3 Create FT Deploy Inscription
+### 3.3 Get Transferable Inscription
+
+Get the transfer inscriptions list of FT by address.
+
+**Request Address**
+
+```
+/v1/address/{address}/ft/{tick}/transferInscriptions
+```
+
+**Request Method**
+
+GET
+
+**Header parameters**
+
+null
+
+**Path parameters**
+
+| parameter | type   | description          |
+| --------- | ------ | -------------------- |
+| address   | string | btc address(taproot) |
+| tick      | string | FT ticker            |
+
+**Query parameters**
+
+null
+
+**Body**
+
+null
+
+**Response**
+
+| parameter        | type           | description               |
+| ---------------- | -------------- | ------------------------- |
+| inscriptionInfos | Arrary<Object> | transfer inscription list |
+
+**structure of balanceInfos**
+
+| parameter     | type   | description                      |
+| ------------- | ------ | -------------------------------- |
+| inscriptionId | string | transfer inscription's Unique id |
+| content       | Object | transfer inscription's content   |
+
+**structure of content**
+
+| parameter | type    | description                            |
+| --------- | ------- | -------------------------------------- |
+| p         | string  | Protocol name                          |
+| op        | string  | Operation                              |
+| tick      | string  | Ticker                                 |
+| amt       | integer | The amount of tokens to be transferred |
+
+**Request Example**
+
+
+
+**Response Example**
+
+
+
+### 3.4 Create FT Deploy Inscription
 
 Create an order to inscribe Deploy Inscription.
 
@@ -707,7 +775,7 @@ curl http://119.147.213.61:38080/v1/ft/deploy -X POST -H 'Authorization:Bearer e
 }
 ```
 
-### 3.4 Create FT Mint Inscription
+### 3.5 Create FT Mint Inscription
 
 Create an order to inscribe Mint Inscription.
 
@@ -751,7 +819,7 @@ null
 | commitTransactionHash | string  | commit transation's hash       |
 | revealTransactionHash | string  | reveal transation's hash       |
 | blockHeight           | integer | block height                   |
-| owner                 | integer | deploy inscription's owner     |
+| owner                 | string  | deploy inscription's owner     |
 
 **Request Example**
 
@@ -761,7 +829,7 @@ null
 
 
 
-### 3.5 Create FT Transfer Inscription
+### 3.6 Create FT Transfer Inscription
 
 Create an order to inscribe Transfer Inscription.
 
@@ -805,7 +873,7 @@ null
 | commitTransactionHash | string  | commit transation's hash       |
 | revealTransactionHash | string  | reveal transation's hash       |
 | blockHeight           | integer | block height                   |
-| owner                 | integer | deploy inscription's owner     |
+| owner                 | string  | deploy inscription's owner     |
 
 **Request Example**
 
@@ -1377,7 +1445,7 @@ null
 | parameter   | required? | type    | description                         |
 | ----------- | --------- | ------- | ----------------------------------- |
 | tick        | yes       | string  | NFT ticker                          |
-| da          | yes       | integer | Specifies the NFT content location  |
+| da          | yes       | string  | Specifies the NFT content location  |
 | description | yes       | string  | a description of the NFT collection |
 | data        | yes       | string  | a picture of the NFT collection     |
 | max         | yes       | integer | total supply NFT                    |
@@ -1491,11 +1559,11 @@ the signature method is as follows:
 
 | parameter             | type    | description                    |
 | --------------------- | ------- | ------------------------------ |
-| inscriptionId         | integer | deploy inscription's unique id |
+| inscriptionId         | string  | deploy inscription's unique id |
 | commitTransactionHash | string  | commit transaction's hash      |
 | revealTransactionHash | string  | reveal transaction's hash      |
 | blockHeight           | integer | block height                   |
-| owner                 | integer | deploy inscription's owner     |
+| owner                 | string  | deploy inscription's owner     |
 
 **Request Example**
 
@@ -1507,7 +1575,7 @@ the signature method is as follows:
 
 ### 5.6 Create NFT Mint Inscription
 
-Create an order to inscribe Mint Inscription.
+Create an order to inscribe Mint Inscription. You should select the meta data of NFT from he files uploaded by deployer.
 
 **Request Address**
 
@@ -1536,11 +1604,11 @@ null
 
 **Body**
 
-| parameter | required? | type    | description                                  |
-| --------- | --------- | ------- | -------------------------------------------- |
-| tick      | yes       | string  | NFT ticker                                   |
-| id        | yes       | integer | NFT content commitment                       |
-| signature | yes       | string  | signature for id with the user's private key |
+| parameter | required? | type   | description                                  |
+| --------- | --------- | ------ | -------------------------------------------- |
+| tick      | yes       | string | NFT ticker                                   |
+| id        | yes       | string | NFT content commitment                       |
+| signature | yes       | string | signature for id with the user's private key |
 
 the signature method is as follows:
 
@@ -1556,7 +1624,7 @@ the signature method is as follows:
 | commitTransactionHash | string  | commit transaction's hash    |
 | revealTransactionHash | string  | reveal transaction's hash    |
 | blockHeight           | integer | block height                 |
-| owner                 | integer | deploy inscription's owner   |
+| owner                 | string  | deploy inscription's owner   |
 
 **Request Example**
 
@@ -1815,8 +1883,8 @@ null
 | parameter     | type    | description                 |
 | ------------- | ------- | --------------------------- |
 | tick          | string  | FT ticker                   |
-| from          | integer | seller address              |
-| to            | integer | buyer address               |
+| from          | string  | seller address              |
+| to            | string  | buyer address               |
 | amount        | integer | FT amount                   |
 | price         | integer | price                       |
 | time          | integer | transaction completion time |
@@ -1873,8 +1941,8 @@ null
 | parameter     | type    | description                 |
 | ------------- | ------- | --------------------------- |
 | tick          | string  | FT ticker                   |
-| from          | integer | seller address              |
-| to            | integer | buyer address               |
+| from          | string  | seller address              |
+| to            | string  | buyer address               |
 | amount        | integer | FT amount                   |
 | price         | integer | price                       |
 | time          | integer | transaction completion time |
@@ -1965,10 +2033,10 @@ null
 
 **Body**
 
-| parameter | required? | type    | description                          |
-| --------- | --------- | ------- | ------------------------------------ |
-| orderId   | yes       | string  | FT sale order id                     |
-| psbt      | yes       | integer | base64 format psbt, signed by seller |
+| parameter | required? | type   | description                          |
+| --------- | --------- | ------ | ------------------------------------ |
+| orderId   | yes       | string | FT sale order id                     |
+| psbt      | yes       | string | base64 format psbt, signed by seller |
 
 **Response**
 
@@ -2052,10 +2120,10 @@ null
 
 **Body**
 
-| parameter | required? | type    | description                          |
-| --------- | --------- | ------- | ------------------------------------ |
-| orderId   | yes       | string  | nft sale order id                    |
-| psbt      | yes       | integer | base64 format psbt, signed by seller |
+| parameter | required? | type   | description                          |
+| --------- | --------- | ------ | ------------------------------------ |
+| orderId   | yes       | string | nft sale order id                    |
+| psbt      | yes       | string | base64 format psbt, signed by seller |
 
 **Response**
 
@@ -2139,10 +2207,10 @@ null
 
 **Body**
 
-| parameter | required? | type    | description                          |
-| --------- | --------- | ------- | ------------------------------------ |
-| orderId   | yes       | string  | NFT sale order id                    |
-| psbt      | yes       | integer | base64 format psbt, signed by seller |
+| parameter | required? | type   | description                          |
+| --------- | --------- | ------ | ------------------------------------ |
+| orderId   | yes       | string | NFT sale order id                    |
+| psbt      | yes       | string | base64 format psbt, signed by seller |
 
 **Response**
 
@@ -2475,8 +2543,8 @@ null
 | parameter     | type    | description                    |
 | ------------- | ------- | ------------------------------ |
 | tick          | string  | NFT ticker                     |
-| from          | integer | seller address                 |
-| to            | integer | buyer address                  |
+| from          | string  | seller address                 |
+| to            | string  | buyer address                  |
 | inscriptionId | string  | NFT mint inscription Unique ID |
 | price         | integer | price                          |
 | time          | integer | transaction completion time    |
@@ -2533,8 +2601,8 @@ null
 | parameter     | type    | description                    |
 | ------------- | ------- | ------------------------------ |
 | tick          | string  | NFT ticker                     |
-| from          | integer | seller address                 |
-| to            | integer | buyer address                  |
+| from          | string  | seller address                 |
+| to            | string  | buyer address                  |
 | inscriptionId | string  | NFT mint inscription Unique ID |
 | price         | integer | price                          |
 | time          | integer | transaction completion time    |
@@ -2712,10 +2780,10 @@ null
 
 **Body**
 
-| parameter | required? | type    | description                          |
-| --------- | --------- | ------- | ------------------------------------ |
-| orderId   | yes       | string  | NFT sale order id                    |
-| psbt      | yes       | integer | base64 format psbt, signed by seller |
+| parameter | required? | type   | description                          |
+| --------- | --------- | ------ | ------------------------------------ |
+| orderId   | yes       | string | NFT sale order id                    |
+| psbt      | yes       | string | base64 format psbt, signed by seller |
 
 **Response**
 
@@ -2799,10 +2867,10 @@ null
 
 **Body**
 
-| parameter | required? | type    | description                          |
-| --------- | --------- | ------- | ------------------------------------ |
-| orderId   | yes       | string  | NFT sale order id                    |
-| psbt      | yes       | integer | base64 format psbt, signed by seller |
+| parameter | required? | type   | description                          |
+| --------- | --------- | ------ | ------------------------------------ |
+| orderId   | yes       | string | NFT sale order id                    |
+| psbt      | yes       | string | base64 format psbt, signed by seller |
 
 **Response**
 
