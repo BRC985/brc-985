@@ -631,18 +631,21 @@ null
 **Request Example**
 
 ```bash
-curl http://119.147.213.61:38080/v1/address/bcrt1pcrjzzyjczr6l5a6u9zecjkydgj8v55a9ucgdcz3lmns07343lqkqdzrt2v/ft/memo/balance
+curl http://119.147.213.61:38080/v1/address/bcrt1pcrjzzyjczr6l5a6u9zecjkydgj8v55a9ucgdcz3lmns07343lqkqdzrt2v/ft/balance
 ```
 
 **Response Example**
 
 ```json
 {
-    "tick": "memo",
-    "address": "bcrt1pcrjzzyjczr6l5a6u9zecjkydgj8v55a9ucgdcz3lmns07343lqkqdzrt2v",
-    "overallBalance": 18900,
-    "transferableBalance": 0,
-    "availableBalance": 18900
+    "balanceInfos": [
+        {
+            "tick": "memo",
+    		"overallBalance": 18900,
+    		"transferableBalance": 0,
+    		"availableBalance": 18900
+        }
+    ]
 }
 ```
 
