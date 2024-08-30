@@ -688,7 +688,7 @@ null
 | ---------------- | -------------- | ------------------------- |
 | inscriptionInfos | Arrary<Object> | transfer inscription list |
 
-**structure of balanceInfos**
+**structure of inscriptionInfos**
 
 | parameter     | type   | description                      |
 | ------------- | ------ | -------------------------------- |
