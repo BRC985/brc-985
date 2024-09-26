@@ -531,10 +531,11 @@ null
 
 **Query parameters**
 
-| parameter | required? | type    | description              |
-| --------- | --------- | ------- | ------------------------ |
-| start     | no        | integer | start offset(Default: 0) |
-| end       | no        | integer | end offset(Default: 10)  |
+| parameter | required? | type    | description                                 |
+| --------- | --------- | ------- | ------------------------------------------- |
+| start     | no        | integer | start offset(Default: 0)                    |
+| end       | no        | integer | end offset(Default: 10)                     |
+| deployer  | no        | string  | if set deployer, filter FT list by deployer |
 
 **Body**
 
@@ -975,10 +976,11 @@ null
 
 **Query parameters**
 
-| parameter | required? | type    | description              |
-| --------- | --------- | ------- | ------------------------ |
-| start     | no        | integer | start offset(Default: 0) |
-| end       | no        | integer | end offset(Default: 10)  |
+| parameter | required? | type    | description                                 |
+| --------- | --------- | ------- | ------------------------------------------- |
+| start     | no        | integer | start offset(Default: 0)                    |
+| end       | no        | integer | end offset(Default: 10)                     |
+| deployer  | no        | string  | if set deployer, filter da list by deployer |
 
 **Body**
 
@@ -1263,10 +1265,11 @@ null
 
 **Query parameters**
 
-| parameter | required? | type    | description              |
-| --------- | --------- | ------- | ------------------------ |
-| start     | no        | integer | start offset(Default: 0) |
-| end       | no        | integer | end offset(Default: 10)  |
+| parameter | required? | type    | description                                           |
+| --------- | --------- | ------- | ----------------------------------------------------- |
+| start     | no        | integer | start offset(Default: 0)                              |
+| end       | no        | integer | end offset(Default: 10)                               |
+| deployer  | no        | string  | if set deployer, filter on-chain NFT list by deployer |
 
 **Body**
 
@@ -1379,10 +1382,11 @@ null
 
 **Query parameters**
 
-| parameter | required? | type    | description              |
-| --------- | --------- | ------- | ------------------------ |
-| start     | no        | integer | start offset(Default: 0) |
-| end       | no        | integer | end offset(Default: 10)  |
+| parameter | required? | type    | description                                            |
+| --------- | --------- | ------- | ------------------------------------------------------ |
+| start     | no        | integer | start offset(Default: 0)                               |
+| end       | no        | integer | end offset(Default: 10)                                |
+| deployer  | no        | string  | if set deployer, filter off-chain NFT list by deployer |
 
 **Body**
 
@@ -1837,6 +1841,7 @@ null
 | --------- | --------- | ------- | ------------------------------------------------------------ |
 | start     | no        | integer | start offset(Default: 0)                                     |
 | end       | no        | integer | end offset(Default: 10)                                      |
+| deployer  | no        | string  | if set deployer, filter FT list by deployer                  |
 | order     | no        | string  | Sorting rules (the default is volum_sec, sorting by total transaction value from high to low) |
 
 **Optional order:**
@@ -2512,6 +2517,7 @@ null
 | --------- | --------- | ------- | ------------------------------------------------------------ |
 | start     | no        | integer | start offset(Default: 0)                                     |
 | end       | no        | integer | end offset(Default: 10)                                      |
+| deployer  | no        | string  | if set deployer, filter NFT list by deployer                 |
 | order     | no        | string  | Sorting rules (the default is volum_sec, sorting by total transaction value from high to low) |
 
 **Optional order:**
