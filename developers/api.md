@@ -354,10 +354,10 @@ null
 
 **Response**
 
-| parameter | type           | description                      |
-| --------- | -------------- | -------------------------------- |
-| infos     | Arrary<Object> | a list of inscription info       |
-| total     | integer        | total number of inscription info |
+| parameter | type             | description                      |
+| --------- | ---------------- | -------------------------------- |
+| infos     | Arrary< Object > | a list of inscription info       |
+| total     | integer          | total number of inscription info |
 
 **structure of infos**
 
@@ -549,12 +549,15 @@ null
 
 **structure of ftInfos**
 
-| parameter | type    | description                           |
-| --------- | ------- | ------------------------------------- |
-| tick      | string  | FT's ticker                           |
-| max       | integer | total supply                          |
-| limit     | integer | maximum mint amount for a single mint |
-| minted    | integer | total minted amount                   |
+| parameter     | type    | description                                     |
+| ------------- | ------- | ----------------------------------------------- |
+| tick          | string  | FT's ticker                                     |
+| max           | integer | total supply                                    |
+| limit         | integer | maximum mint amount for a single mint           |
+| minted        | integer | total minted amount                             |
+| inscriptionId | string  | the unique inscription id of deploy inscription |
+| deployer      | string  | deployer address                                |
+| createTime    | integer | deploy inscription creation time                |
 
 **Request Example**
 
@@ -581,7 +584,68 @@ curl http://119.147.213.61:38080/v1/ft/list?start=1&end=3
 ]
 ```
 
-### 3.2 Get Address FT Balance
+### 3.2 Get FT Ticker Info
+
+Get the Information of FT by ticker.
+
+**Request Address**
+
+```
+/v1/ft/{ticker}/info
+```
+
+**Request Method**
+
+GET
+
+**Header parameters**
+
+null
+
+**Path parameters**
+
+| parameter | type   | description      |
+| --------- | ------ | ---------------- |
+| ticker    | string | the ticker of FT |
+
+**Query parameters**
+
+null
+
+**Body**
+
+null
+
+**Response**
+
+| parameter     | type    | description                                     |
+| ------------- | ------- | ----------------------------------------------- |
+| tick          | string  | FT's ticker                                     |
+| max           | integer | total supply                                    |
+| limit         | integer | maximum mint amount for a single mint           |
+| minted        | integer | total minted amount                             |
+| inscriptionId | string  | the unique inscription id of deploy inscription |
+| deployer      | string  | deployer address                                |
+| createTime    | integer | deploy inscription creation time                |
+
+**Request Example**
+
+```bash
+curl http://119.147.213.61:38080/v1/ft/list?start=1&end=3
+```
+
+**Response Example**
+
+```json
+{
+    "tick": "memo2",
+    "max": 2400000,
+    "lim": 0,
+    "minted": 3000
+}
+```
+
+### 3.3 Get Address FT Balance
 
 Obtain FT balance by address, including available balance, transferable balance.
 
@@ -615,9 +679,9 @@ null
 
 **Response**
 
-| parameter    | type           | description         |
-| ------------ | -------------- | ------------------- |
-| balanceInfos | Arrary<Object> | balance information |
+| parameter    | type             | description         |
+| ------------ | ---------------- | ------------------- |
+| balanceInfos | Arrary< Object > | balance information |
 
 **structure of balanceInfos**
 
@@ -649,7 +713,7 @@ curl http://119.147.213.61:38080/v1/address/bcrt1pcrjzzyjczr6l5a6u9zecjkydgj8v55
 }
 ```
 
-### 3.3 Get Transferable Inscription
+### 3.4 Get Transferable Inscription
 
 Get the transfer inscriptions list of FT by address.
 
@@ -684,9 +748,9 @@ null
 
 **Response**
 
-| parameter        | type           | description               |
-| ---------------- | -------------- | ------------------------- |
-| inscriptionInfos | Arrary<Object> | transfer inscription list |
+| parameter        | type             | description               |
+| ---------------- | ---------------- | ------------------------- |
+| inscriptionInfos | Arrary< Object > | transfer inscription list |
 
 **structure of inscriptionInfos**
 
@@ -712,7 +776,7 @@ null
 
 
 
-### 3.4 Create FT Deploy Inscription
+### 3.5 Create FT Deploy Inscription
 
 Create an order to inscribe Deploy Inscription.
 
@@ -777,7 +841,7 @@ curl http://119.147.213.61:38080/v1/ft/deploy -X POST -H 'Authorization:Bearer e
 }
 ```
 
-### 3.5 Create FT Mint Inscription
+### 3.6 Create FT Mint Inscription
 
 Create an order to inscribe Mint Inscription.
 
@@ -831,7 +895,7 @@ null
 
 
 
-### 3.6 Create FT Transfer Inscription
+### 3.7 Create FT Transfer Inscription
 
 Create an order to inscribe Transfer Inscription.
 
@@ -1161,11 +1225,9 @@ null
 
 **Response**
 
-| parameter     | type   | description                    |
-| ------------- | ------ | ------------------------------ |
-| tick          | string | DA's ticker                    |
-| id            | string | data commitment                |
-| inscriptionId | string | Upload inscription's unique id |
+| parameter | type | description                                   |
+| --------- | ---- | --------------------------------------------- |
+| file      | file | The file corresponding to the data commitment |
 
 **Request Example**
 
@@ -1219,13 +1281,17 @@ null
 
 **structure of nftInfos**
 
-| parameter   | type   | description                                         |
-| ----------- | ------ | --------------------------------------------------- |
-| tick        | string | NFT's ticker                                        |
-| da          | string | Data Access system's ticker                         |
-| description | string | a description of the NFT collection                 |
-| id          | string | the commitment of the picture of the NFT collection |
-| deployer    | string | deployer address                                    |
+| parameter     | type    | description                                         |
+| ------------- | ------- | --------------------------------------------------- |
+| tick          | string  | NFT's ticker                                        |
+| da            | string  | Data Access system's ticker                         |
+| description   | string  | a description of the NFT collection                 |
+| id            | string  | the commitment of the picture of the NFT collection |
+| inscriptionId | string  | the unique inscription id of deploy inscription     |
+| deployer      | string  | deployer address                                    |
+| max           | integer | maximum NFT issuance                                |
+| minted        | integer | total minted amount                                 |
+| createTime    | integer | deploy inscription creation time                    |
 
 **Request Example**
 
@@ -1235,7 +1301,61 @@ null
 
 
 
-### 5.2 Get Off-chain NFT Collection List
+### 5.2 Get On-chain NFT Collection Ticker Info
+
+Get the information of On-chain NFT Collection by ticker.
+
+**Request Address**
+
+```
+/v1/nft/{ticker}/info
+```
+
+**Request Method**
+
+GET
+
+**Header parameters**
+
+null
+
+**Path parameters**
+
+| parameter | type   | description                  |
+| --------- | ------ | ---------------------------- |
+| ticker    | string | the ticker of NFT collection |
+
+**Query parameters**
+
+null
+
+**Body**
+
+null
+
+**Response**
+
+| parameter     | type    | description                                         |
+| ------------- | ------- | --------------------------------------------------- |
+| tick          | string  | NFT's ticker                                        |
+| da            | string  | Data Access system's ticker                         |
+| description   | string  | a description of the NFT collection                 |
+| id            | string  | the commitment of the picture of the NFT collection |
+| inscriptionId | string  | the unique inscription id of deploy inscription     |
+| deployer      | string  | deployer address                                    |
+| max           | integer | maximum NFT issuance                                |
+| minted        | integer | total minted amount                                 |
+| createTime    | integer | deploy inscription creation time                    |
+
+**Request Example**
+
+
+
+**Response Example**
+
+
+
+### 5.3 Get Off-chain NFT Collection List
 
 Get the list of off-chain NFT collection which create Deploy request but not submit all files.
 
@@ -1284,7 +1404,7 @@ null
 | description | string  | a description of the NFT collection                 |
 | id          | string  | the commitment of the picture of the NFT collection |
 | deployer    | string  | deployer address                                    |
-| max         | integer | total supply nft                                    |
+| max         | integer | maximum NFT issuance                                |
 | uploaded    | integer | number of uploaded file                             |
 | createTime  | integer | Deploy request creation time                        |
 
@@ -1296,7 +1416,60 @@ null
 
 
 
-### 5.3 Get Address NFT Hold
+### 5.4 Get Off-chain NFT Collection Ticker Info
+
+Get the information of NFT collection by ticker.
+
+**Request Address**
+
+```
+/v1/nft/offchain/{ticker}/info
+```
+
+**Request Method**
+
+GET
+
+**Header parameters**
+
+null
+
+**Path parameters**
+
+| parameter | type   | description                  |
+| --------- | ------ | ---------------------------- |
+| ticker    | string | the ticker of NFT collection |
+
+**Query parameters**
+
+null
+
+**Body**
+
+null
+
+**Response**
+
+| parameter   | type    | description                                         |
+| ----------- | ------- | --------------------------------------------------- |
+| tick        | string  | NFT's ticker                                        |
+| da          | string  | Data Access system's ticker                         |
+| description | string  | a description of the NFT collection                 |
+| id          | string  | the commitment of the picture of the NFT collection |
+| deployer    | string  | deployer address                                    |
+| max         | integer | maximum NFT issuance                                |
+| uploaded    | integer | number of uploaded file                             |
+| createTime  | integer | Deploy request creation time                        |
+
+**Request Example**
+
+
+
+**Response Example**
+
+
+
+### 5.4 Get Address NFT Hold
 
 Get NFT hold by address.
 
@@ -1495,16 +1668,16 @@ null
 
 **Body(form-data)**
 
-| parameter | required? | type         | description      |
-| --------- | --------- | ------------ | ---------------- |
-| tick      | yes       | string       | NFT ticker       |
-| files     | yes       | Arrary<file> | list of nft data |
+| parameter | required? | type           | description      |
+| --------- | --------- | -------------- | ---------------- |
+| tick      | yes       | string         | NFT ticker       |
+| files     | yes       | Arrary< file > | list of nft data |
 
 **Response**
 
-| parameter | type           | description                    |
-| --------- | -------------- | ------------------------------ |
-| dataIds   | Arrary<string> | collection of data commitments |
+| parameter | type             | description                    |
+| --------- | ---------------- | ------------------------------ |
+| dataIds   | Arrary< string > | collection of data commitments |
 
 **Request Example**
 
@@ -1681,24 +1854,28 @@ null
 
 **Response**
 
-| parameter | type          | description     |
-| --------- | ------------- | --------------- |
-| ftInfos   | Array<Object> | list of FT info |
+| parameter | type          | description        |
+| --------- | ------------- | ------------------ |
+| ftInfos   | Array<Object> | list of FT info    |
+| total     | integer       | total number of FT |
 
 **structure of ftInfos**
 
-| parameter      | type    | description                            |
-| -------------- | ------- | -------------------------------------- |
-| tick           | string  | FT's ticker                            |
-| max            | integer | total supply                           |
-| limit          | integer | minimum mint amount for a single mint  |
-| minted         | integer | total minted amount                    |
-| listed         | integer | the number of FT orders                |
-| transactions   | integer | the number of transactions             |
-| holders        | integer | the number of addresses holding the FT |
-| volume         | integer | total volume                           |
-| capitalization | integer | market capitalization                  |
-| floorPrice     | integer | floor price（sats/token）              |
+| parameter      | type    | description                                     |
+| -------------- | ------- | ----------------------------------------------- |
+| tick           | string  | FT's ticker                                     |
+| max            | integer | total supply                                    |
+| limit          | integer | minimum mint amount for a single mint           |
+| minted         | integer | total minted amount                             |
+| listed         | integer | the number of FT orders                         |
+| transactions   | integer | the number of transactions                      |
+| holders        | integer | the number of addresses holding the FT          |
+| volume         | integer | total volume                                    |
+| capitalization | integer | market capitalization                           |
+| floorPrice     | integer | floor price（sats/token）                       |
+| inscriptionId  | string  | the unique inscription id of deploy inscription |
+| deployer       | string  | deployer address                                |
+| createTime     | integer | deploy inscription creation time                |
 
 **Request Example**
 
@@ -1750,9 +1927,10 @@ null
 
 **Response**
 
-| parameter  | type           | description        |
-| ---------- | -------------- | ------------------ |
-| orderInfos | Arrary<Object> | list of order info |
+| parameter  | type             | description           |
+| ---------- | ---------------- | --------------------- |
+| orderInfos | Arrary< Object > | list of order info    |
+| total      | integer          | total number of order |
 
 **structure of orderInfos**
 
@@ -1780,7 +1958,7 @@ Get a list of on sale ft orders associated with an address.
 **Request Address**
 
 ```
-/v1/market/address/{address}/ft/{tick}/order/list
+/v1/market/address/{address}/ft/order/list
 ```
 
 **Request Method**
@@ -1791,7 +1969,6 @@ GET
 
 | parameter | type   | description |
 | --------- | ------ | ----------- |
-| tick      | string | FT ticker   |
 | address   | string | BTC address |
 
 **Query parameters**
@@ -1820,9 +1997,10 @@ null
 
 **Response**
 
-| parameter  | type           | description        |
-| ---------- | -------------- | ------------------ |
-| orderInfos | Arrary<Object> | list of order info |
+| parameter  | type             | description           |
+| ---------- | ---------------- | --------------------- |
+| orderInfos | Arrary< Object > | list of order info    |
+| total      | integer          | total number of order |
 
 **structure of orderInfos**
 
@@ -1876,9 +2054,10 @@ null
 
 **Response**
 
-| parameter        | type           | description              |
-| ---------------- | -------------- | ------------------------ |
-| transactionInfos | Arrary<Object> | list of transaction info |
+| parameter        | type             | description                 |
+| ---------------- | ---------------- | --------------------------- |
+| transactionInfos | Arrary< Object > | list of transaction info    |
+| total            | integer          | total number of transaction |
 
 **structure of orderInfos**
 
@@ -1907,7 +2086,7 @@ Get a list of FT transaction history associated with an address.
 **Request Address**
 
 ```
-/v1/market/address/{address}/ft/{tick}/transaction/list
+/v1/market/address/{address}/ft/transaction/list
 ```
 
 **Request Method**
@@ -1918,7 +2097,6 @@ GET
 
 | parameter | type   | description |
 | --------- | ------ | ----------- |
-| tick      | string | FT ticker   |
 | address   | string | BTC address |
 
 **Query parameters**
@@ -1934,9 +2112,10 @@ null
 
 **Response**
 
-| parameter        | type           | description              |
-| ---------------- | -------------- | ------------------------ |
-| transactionInfos | Arrary<Object> | list of transaction info |
+| parameter        | type             | description                 |
+| ---------------- | ---------------- | --------------------------- |
+| transactionInfos | Arrary< Object > | list of transaction info    |
+| total            | integer          | total number of transaction |
 
 **structure of orderInfos**
 
@@ -2354,9 +2533,10 @@ null
 
 **Response**
 
-| parameter | type          | description      |
-| --------- | ------------- | ---------------- |
-| ftInfos   | Array<Object> | list of NFT info |
+| parameter | type          | description                    |
+| --------- | ------------- | ------------------------------ |
+| ftInfos   | Array<Object> | list of NFT info               |
+| total     | integer       | total number of NFT collection |
 
 **stuct of ftInfos**
 
@@ -2370,6 +2550,8 @@ null
 | holders      | integer | the number of addresses holding the NFT |
 | volume       | integer | total volume                            |
 | floorPrice   | integer | floor price（sats/token）               |
+| da           | string  | Data Access system's ticker             |
+| description  | string  | a description of the NFT collection     |
 
 **Request Example**
 
@@ -2419,9 +2601,10 @@ null
 
 **Response**
 
-| parameter  | type           | description        |
-| ---------- | -------------- | ------------------ |
-| orderInfos | Arrary<Object> | list of order info |
+| parameter  | type             | description           |
+| ---------- | ---------------- | --------------------- |
+| orderInfos | Arrary< Object > | list of order info    |
+| total      | integer          | total number of order |
 
 **structure of orderInfos**
 
@@ -2448,7 +2631,7 @@ Get a list of on sale nft orders associated with an address.
 **Request Address**
 
 ```
-/v1/market/address/{address}/nft/{tick}/order/list
+/v1/market/address/{address}/nft/order/list
 ```
 
 **Request Method**
@@ -2459,7 +2642,6 @@ GET
 
 | parameter | type   | description |
 | --------- | ------ | ----------- |
-| tick      | string | NFT ticker  |
 | address   | string | BTC address |
 
 **Query parameters**
@@ -2481,9 +2663,10 @@ null
 
 **Response**
 
-| parameter  | type           | description        |
-| ---------- | -------------- | ------------------ |
-| orderInfos | Arrary<Object> | list of order info |
+| parameter  | type             | description           |
+| ---------- | ---------------- | --------------------- |
+| orderInfos | Arrary< Object > | list of order info    |
+| total      | integer          | total number of order |
 
 **structure of orderInfos**
 
@@ -2536,9 +2719,10 @@ null
 
 **Response**
 
-| parameter        | type           | description              |
-| ---------------- | -------------- | ------------------------ |
-| transactionInfos | Arrary<Object> | list of transaction info |
+| parameter        | type             | description                 |
+| ---------------- | ---------------- | --------------------------- |
+| transactionInfos | Arrary< Object > | list of transaction info    |
+| total            | integer          | total number of transaction |
 
 **structure of orderInfos**
 
@@ -2567,7 +2751,7 @@ Get a list of NFT transaction history.
 **Request Address**
 
 ```
-/v1/market/address/{address}/nft/{tick}/transaction/list
+/v1/market/address/{address}/nft/transaction/list
 ```
 
 **Request Method**
@@ -2578,7 +2762,6 @@ GET
 
 | parameter | type   | description |
 | --------- | ------ | ----------- |
-| tick      | string | NFT ticker  |
 | address   | string | BTC address |
 
 **Query parameters**
@@ -2594,9 +2777,10 @@ null
 
 **Response**
 
-| parameter        | type           | description              |
-| ---------------- | -------------- | ------------------------ |
-| transactionInfos | Arrary<Object> | list of transaction info |
+| parameter        | type             | description                 |
+| ---------------- | ---------------- | --------------------------- |
+| transactionInfos | Arrary< Object > | list of transaction info    |
+| total            | integer          | total number of transaction |
 
 **structure of orderInfos**
 
