@@ -1861,21 +1861,18 @@ null
 
 **structure of ftInfos**
 
-| parameter      | type    | description                                     |
-| -------------- | ------- | ----------------------------------------------- |
-| tick           | string  | FT's ticker                                     |
-| max            | integer | total supply                                    |
-| limit          | integer | minimum mint amount for a single mint           |
-| minted         | integer | total minted amount                             |
-| listed         | integer | the number of FT orders                         |
-| transactions   | integer | the number of transactions                      |
-| holders        | integer | the number of addresses holding the FT          |
-| volume         | integer | total volume                                    |
-| capitalization | integer | market capitalization                           |
-| floorPrice     | integer | floor price（sats/token）                       |
-| inscriptionId  | string  | the unique inscription id of deploy inscription |
-| deployer       | string  | deployer address                                |
-| createTime     | integer | deploy inscription creation time                |
+| parameter      | type    | description                            |
+| -------------- | ------- | -------------------------------------- |
+| tick           | string  | FT's ticker                            |
+| max            | integer | total supply                           |
+| limit          | integer | minimum mint amount for a single mint  |
+| minted         | integer | total minted amount                    |
+| listed         | integer | the number of FT orders                |
+| transactions   | integer | the number of transactions             |
+| holders        | integer | the number of addresses holding the FT |
+| volume         | integer | total volume                           |
+| capitalization | integer | market capitalization                  |
+| floorPrice     | integer | floor price（sats/token）              |
 
 **Request Example**
 
@@ -2550,8 +2547,6 @@ null
 | holders      | integer | the number of addresses holding the NFT |
 | volume       | integer | total volume                            |
 | floorPrice   | integer | floor price（sats/token）               |
-| da           | string  | Data Access system's ticker             |
-| description  | string  | a description of the NFT collection     |
 
 **Request Example**
 
