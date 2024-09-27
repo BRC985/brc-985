@@ -721,7 +721,7 @@ Get the transfer inscriptions list of FT by address.
 **Request Address**
 
 ```
-/v1/address/{address}/ft/{tick}/transferInscriptions
+/v1/address/{address}/ft/transferInscriptions
 ```
 
 **Request Method**
@@ -737,11 +737,13 @@ null
 | parameter | type   | description          |
 | --------- | ------ | -------------------- |
 | address   | string | btc address(taproot) |
-| tick      | string | FT ticker            |
 
 **Query parameters**
 
-null
+| parameter | required? | type    | description              |
+| --------- | --------- | ------- | ------------------------ |
+| start     | no        | integer | start offset(default: 0) |
+| end       | no        | integer | end offset(default: 10)  |
 
 **Body**
 
@@ -1032,7 +1034,7 @@ Get data(store in DA) hold by address.
 **Request Address**
 
 ```
-/v1/address/{address}/da/{tick}/hold
+/v1/address/{address}/da/hold
 ```
 
 **Request Method**
@@ -1048,7 +1050,6 @@ null
 | parameter | type   | description          |
 | --------- | ------ | -------------------- |
 | address   | string | btc address(taproot) |
-| tick      | string | DA ticker            |
 
 **Query parameters**
 
@@ -1480,7 +1481,7 @@ Get NFT hold by address.
 **Request Address**
 
 ```
-/v1/address/{address}/nft/{tick}/hold
+/v1/address/{address}/nft/hold
 ```
 
 **Request Method**
@@ -1496,7 +1497,6 @@ null
 | parameter | type   | description          |
 | --------- | ------ | -------------------- |
 | address   | string | btc address(taproot) |
-| tick      | string | NFT ticker           |
 
 **Query parameters**
 
@@ -2023,7 +2023,74 @@ null
 
 
 
-#### 6.1.4 Get FT transaction History List
+#### 6.1.4 Get Address Transferable Inscription Status
+
+Get the transfer inscriptions list of FT by address.
+
+**Request Address**
+
+```
+/v1/market/address/{address}/ft/transferInscriptions
+```
+
+**Request Method**
+
+GET
+
+**Header parameters**
+
+null
+
+**Path parameters**
+
+| parameter | type   | description          |
+| --------- | ------ | -------------------- |
+| address   | string | btc address(taproot) |
+| tick      | string | FT ticker            |
+
+**Query parameters**
+
+| parameter | required? | type    | description              |
+| --------- | --------- | ------- | ------------------------ |
+| start     | no        | integer | start offset(default: 0) |
+| end       | no        | integer | end offset(default: 10)  |
+
+**Body**
+
+null
+
+**Response**
+
+| parameter        | type             | description               |
+| ---------------- | ---------------- | ------------------------- |
+| inscriptionInfos | Arrary< Object > | transfer inscription list |
+
+**structure of inscriptionInfos**
+
+| parameter     | type   | description                                  |
+| ------------- | ------ | -------------------------------------------- |
+| inscriptionId | string | transfer inscription's Unique id             |
+| content       | Object | transfer inscription's content               |
+| listed        | bool   | transfer inscription is listed in the market |
+
+**structure of content**
+
+| parameter | type    | description                            |
+| --------- | ------- | -------------------------------------- |
+| p         | string  | Protocol name                          |
+| op        | string  | Operation                              |
+| tick      | string  | Ticker                                 |
+| amt       | integer | The amount of tokens to be transferred |
+
+**Request Example**
+
+
+
+**Response Example**
+
+
+
+#### 6.1.5 Get FT transaction History List
 
 Get a list of FT transaction history.
 
@@ -2081,7 +2148,7 @@ null
 
 
 
-#### 6.1.5 Get FT transaction History List
+#### 6.1.6 Get FT transaction History List
 
 Get a list of FT transaction history associated with an address.
 
@@ -2139,7 +2206,7 @@ null
 
 
 
-#### 6.1.6 Create Sale Orders
+#### 6.1.7 Create Sale Orders
 
 Create sale order for chosen ft Transfer inscription. Before calling this interface, you need to call FT's Transfer interface.
 
@@ -2192,7 +2259,7 @@ null
 
 
 
-#### 6.1.7 Confirm Sale Order
+#### 6.1.8 Confirm Sale Order
 
 Confirm sale order for chosen ft Transfer inscription. You should sign in the psbt with `SIGHASH_SIGNAL | SIGHASH_ANYONECANPAY`.
 
@@ -2233,7 +2300,7 @@ null
 
 
 
-#### 6.1.8 Create Purchase Order
+#### 6.1.9 Create Purchase Order
 
 Create purchase order for chosen ft Transfer inscription. 
 
@@ -2279,7 +2346,7 @@ null
 
 
 
-#### 6.1.9 Confirm Purchase Order
+#### 6.1.10 Confirm Purchase Order
 
 Confirm purchase order for chosen ft transfer inscription. You should sign in the psbt with SIGHASH_ALL.
 
@@ -2320,7 +2387,7 @@ null
 
 
 
-#### 6.1.10 Create Change Price Order
+#### 6.1.11 Create Change Price Order
 
 Create an order to change the price of chosen ft transfer inscription. 
 
@@ -2366,7 +2433,7 @@ null
 
 
 
-#### 6.1.11 Confirm Change Price Order
+#### 6.1.12 Confirm Change Price Order
 
 Confirm change price order for chosen ft transfer inscription. You should sign in the psbt with SIGHASH_SIGNAL | SIGHASH_ANYONECANPAY.
 
@@ -2407,7 +2474,7 @@ null
 
 
 
-#### 6.1.12 Create Cancellation  Order
+#### 6.1.13 Create Cancellation  Order
 
 Create a cancellation order to take down a sale order. Subsequently the seller needs to sign the rawTransaction. The rawTransaction will transfer the FT transfer inscription to your address.
 
@@ -2447,47 +2514,6 @@ null
 
 
 **Response Example**
-
-
-
-#### 6.1.13 Confirm Cancellation  Order
-
-Confirm a cancellation order to take down a sale order. 
-
-**Request Address**
-
-```
-/v1/market/ft/order/cancel/confirm
-```
-
-**Request Method**
-
-POST
-
-**Path parameters**
-
-null
-
-**Query parameters**
-
-null
-
-**Body**
-
-| parameter      | required? | type   | description                      |
-| -------------- | --------- | ------ | -------------------------------- |
-| orderId        | yes       | string | FT sale order id                 |
-| rawTransaction | yes       | string | base64 format signed transaction |
-
-**Response**
-
-null
-
-**Request Example**
-
-
-
-**Response Example** 
 
 
 
@@ -2647,10 +2673,11 @@ GET
 
 **Query parameters**
 
-| parameter | required? | type    | description              |
-| --------- | --------- | ------- | ------------------------ |
-| start     | no        | integer | start offset(Default: 0) |
-| end       | no        | integer | end offset(Default: 10)  |
+| parameter | required? | type    | description                                                  |
+| --------- | --------- | ------- | ------------------------------------------------------------ |
+| start     | no        | integer | start offset(Default: 0)                                     |
+| end       | no        | integer | end offset(Default: 10)                                      |
+| order     | no        | string  | Sorting rules (the default is price_dsec, sorting by total transaction value from high to low) |
 
 **Optional order:**
 
@@ -2687,7 +2714,67 @@ null
 
 
 
-#### 6.2.4 Get NFT transaction History List
+#### 6.2.4 Get Address NFT Status List
+
+Get status of NFT hold by address.
+
+**Request Address**
+
+```
+/v1/market/address/{address}/nft/hold
+```
+
+**Request Method**
+
+GET
+
+**Header parameters**
+
+null
+
+**Path parameters**
+
+| parameter | type   | description          |
+| --------- | ------ | -------------------- |
+| address   | string | btc address(taproot) |
+| tick      | string | NFT ticker           |
+
+**Query parameters**
+
+| parameter | required? | type    | description              |
+| --------- | --------- | ------- | ------------------------ |
+| start     | no        | integer | start offset(default: 0) |
+| end       | no        | integer | end offset(default: 10)  |
+
+**Body**
+
+null
+
+**Response**
+
+| parameter | type          | description                       |
+| --------- | ------------- | --------------------------------- |
+| nfts      | Array<Object> | list of NFT hold by user          |
+| total     | integer       | total number of NFTs hold by user |
+
+**structure of nfts**
+
+| parameter     | type   | description                      |
+| ------------- | ------ | -------------------------------- |
+| tick          | string | NFT's ticker                     |
+| id            | string | data commitment for NFT content  |
+| inscriptionId | string | NFT Mint inscription's unique id |
+| listed        | bool   | NFT is listed in the market      |
+
+**Request Example**
+
+
+
+**Response Example**
+
+
+
+#### 6.2.5 Get NFT transaction History List
 
 Get a list of NFT transaction history.
 
@@ -2745,7 +2832,7 @@ null
 
 
 
-#### 6.2.5 Get Address NFT transaction History List
+#### 6.2.6 Get Address NFT transaction History List
 
 Get a list of NFT transaction history.
 
@@ -2803,7 +2890,7 @@ null
 
 
 
-#### 6.2.6 Create Sale Order
+#### 6.2.7 Create Sale Order
 
 Create sale order for chosen nft. 
 
@@ -2856,7 +2943,7 @@ null
 
 
 
-#### 6.2.7 Confirm Sale Order
+#### 6.2.8 Confirm Sale Order
 
 Confirm sale order for chosen nft. You should sign in the psbt with SIGHASH_SIGNAL | SIGHASH_ANYONECANPAY.
 
@@ -2897,7 +2984,7 @@ null
 
 
 
-#### 6.2.8 Create Purchase Order
+#### 6.2.9 Create Purchase Order
 
 Create purchase order for chosen nft. 
 
@@ -2943,7 +3030,7 @@ null
 
 
 
-#### 6.2.9 Confirm Purchase Order
+#### 6.2.10 Confirm Purchase Order
 
 Confirm purchase order for chosen nft. You should sign in the psbt with SIGHASH_ALL.
 
@@ -2984,7 +3071,7 @@ null
 
 
 
-#### 6.2.10 Create Change Price Order
+#### 6.2.11 Create Change Price Order
 
 Create an order to change the price of chosen nft. 
 
@@ -3030,7 +3117,7 @@ null
 
 
 
-#### 6.2.11 Confirm Change Price Order
+#### 6.2.12 Confirm Change Price Order
 
 Confirm change price order for chosen nft. You should sign in the psbt with SIGHASH_SIGNAL | SIGHASH_ANYONECANPAY.
 
@@ -3071,7 +3158,7 @@ null
 
 
 
-#### 6.2.12 Create Cancellation  Order
+#### 6.2.13 Create Cancellation  Order
 
 Create a cancellation order to take down a sale order. 
 
