@@ -1421,7 +1421,7 @@ null
 
 
 
-### 5.4 Get Off-chain NFT Collection Ticker Info
+### 5.5 Get Off-chain NFT Collection Ticker Info
 
 Get the information of NFT collection by ticker.
 
@@ -1474,7 +1474,7 @@ null
 
 
 
-### 5.4 Get Address NFT Hold
+### 5.6 Get Address NFT Hold
 
 Get NFT hold by address.
 
@@ -1532,7 +1532,7 @@ null
 
 
 
-### 5.4 Get Off-chain NFT Content List
+### 5.7 Get Off-chain NFT Content List
 
 Get a list of Off-chain NFT content.
 
@@ -1582,7 +1582,7 @@ null
 
 
 
-### 5.5 Create NFT Deploy Inscription
+### 5.8 Create NFT Deploy Inscription
 
 Creating a deploy inscription is divided into 3 steps:
 
@@ -1590,7 +1590,7 @@ Creating a deploy inscription is divided into 3 steps:
 2. **Batch upload data:** deployer batch uploads audited data (due to subsequent mint nft);
 3. **Confirm The deploy request:** after the batch upload is complete, the deployer confirms the creation of the deploy inscription.
 
-#### 5.5.1 Create Deploy Request
+#### 5.8.1 Create Deploy Request
 
 Create a request for creating deploy inscription.
 
@@ -1641,7 +1641,7 @@ null
 
 
 
-#### 5.5.2 Batch Upload NFT Content
+#### 5.8.2 Batch Upload NFT Content
 
 Batch upload NFT content to server. Batch uploaded content will be needed for subsequent minting of NFTs.
 
@@ -1691,7 +1691,7 @@ null
 
 
 
-#### 5.5.3 Confirm Deploy Request
+#### 5.8.3 Confirm Deploy Request
 
 Confirm the deploy request when the deployer has uploaded all the NFT data..
 
@@ -1752,7 +1752,7 @@ the signature method is as follows:
 
 
 
-### 5.6 Create NFT Mint Inscription
+### 5.9 Create NFT Mint Inscription
 
 Create an order to inscribe Mint Inscription. You should select the meta data of NFT from he files uploaded by deployer.
 
